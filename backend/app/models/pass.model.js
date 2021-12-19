@@ -2,18 +2,18 @@ const sql = require("./db.js");
 
 const Pass = function(pass) {	// defining a constructor for table <pass> from our db
 	this.StationID = pass.StationID;
-	this.tagID = pass.tagID;
+	this.VehicleID = pass.VehicleID;
 	this.passID = pass.passID;
 	this.LogData = pass.LogData;
 	this.amount = pass.amount;
-	this.Type = pass.Type;
+	//this.Type = pass.Type;
 };
 
 
 
 
 Pass.getCost = (op1, op2, date_from, date_to, result) => {
-	sql.query(`Select COUNT(p.passID) as count FROM pass AS p JOIN station AS s USING (StationID) JOIN tranceiver AS t USING (tagID) WHERE s.OperatorID = ${op1}
+	sql.query(`Select COUNT(p.passID) as count FROM pass AS p JOIN station AS s USING (StationID) JOIN tranceiver AS t USING (VehicleID) WHERE s.OperatorID = ${op1}
 		AND t.OperatorID = ${op2} AND p.LogData BETWEEN STR_TO_DATE(${date_from},'%Y%m%d') AND STR_TO_DATE(${date_to},'%Y%m%d')`, (err, res) => {
 			if (err) {   // some interval error occurred
 			      console.log("error: ", err);
