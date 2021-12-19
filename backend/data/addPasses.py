@@ -5,10 +5,10 @@
 import pandas as pd
 import mysql.connector
 
-db = mysql.connector.MySQLConnection(   # fill with your own credentials - same as with file db.config.js
+db = mysql.connector.MySQLConnection(   # fill with your own credentials
     host="localhost",
     user="****",
-    password="******",
+    password="****",
     database=" "
     )
 mycursor = db.cursor()
@@ -20,7 +20,14 @@ for i in range(0, len(df)):
     pass_id = df.iloc[i]['passID']
     st_id = df.iloc[i]['stationRef']
     amount = df.iloc[i]['charge']
-    # timestamp = ...
-    # tagID = ...
-    # type = ...
+    timestamp = df.iloc[i]['timestamp']
+    veh_id = df.iloc[i]['vehicleRef']
+
+    q = "INSERT INTO pass VALUES ('{}', '{}', '{}', STR_TO_DATE('{}', '%d/%m/%Y %h:%i'), {})".format(pass_id, st_id, veh_id, timestamp, amount)
+    mycursor.execute(q)
+    db.commit()  # save changes
+
+mycursor.close()  # closing the connection
+db.close()
+
 

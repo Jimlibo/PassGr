@@ -5,10 +5,10 @@
 import pandas as pd
 import mysql.connector
 
-db = mysql.connector.MySQLConnection(   # fill with your own credentials - same as with file db.config.js
+db = mysql.connector.MySQLConnection(   # fill with your own credentials
     host="localhost",
-    user=" ****",
-    password="*******",
+    user="****",
+    password="****",
     database=" "
     )
 mycursor = db.cursor()
@@ -31,7 +31,7 @@ for i in range(0, len(df)):  # adding each tranceiver to the database
     op_id = operators[df.iloc[i]['tagProvider']]  # find the tagProvider name, and return the appropriate id
     license_year = df.iloc[i]['licenseYear']
 
-    q = "INSERT INTO tranceiver VALUES ('{}', {}, 0.0, '{}', {})".format(tag_id, op_ID, veh_id, license_year)
+    q = "INSERT INTO tranceiver VALUES ('{}', {}, 0.0, '{}', {}, 1)".format(tag_id, op_id, veh_id, license_year)
     mycursor.execute(q)
     db.commit()    # save changes
 

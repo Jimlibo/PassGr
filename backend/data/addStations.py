@@ -5,10 +5,10 @@
 import pandas as pd
 import mysql.connector
 
-db = mysql.connector.MySQLConnection(  # fill with your own credentials - same as with file db.config.js
+db = mysql.connector.MySQLConnection(   # fill with your own credentials
     host="localhost",
     user="****",
-    password="******",
+    password="****",
     database=" "
     )
 mycursor = db.cursor()
@@ -31,7 +31,7 @@ for i in range(0, len(df)):  # adding each station to the database
     op_ID = operators[df.iloc[i]['stationProvider']]   # find the provider and return the appropriate ID
     name = df.iloc[i]['stationName']
 
-    q = "INSERT INTO station VALUES ('{}', {}, '{}')".format(st_id, op_ID, name)
+    q = "INSERT INTO station VALUES ('{}', {}, '{}', 1)".format(st_id, op_ID, name)
     mycursor.execute(q)
     db.commit()   # save changes
 

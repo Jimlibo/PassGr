@@ -3,12 +3,12 @@
 
 import mysql.connector
 
-db = mysql.connector.MySQLConnection(   # fill with your own credentials - same as with file db.config.js
-	host="localhost",
-	user="***",
-	password="*******",
-	database=" "
-	)
+db = mysql.connector.MySQLConnection(   # fill with your own credentials
+    host="localhost",
+    user="****",
+    password="****",
+    database=" "
+    )
 mycursor = db.cursor()
 
 
