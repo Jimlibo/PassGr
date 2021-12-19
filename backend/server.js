@@ -1,24 +1,26 @@
-const express = require('express')
-const bodyparser = require('body-parser')
+const express = require('express');
+const cors = require('cors');
 
 const app = express();
-const port = 8000;
 
-// middleware 
-app.use(bodyparser.json())
+var corsOption = {
+	origin: "http:localhost:8081"
+};
 
-// initialize port for node application to run
-app.listen(port, ()=> {
-	console.log('Example app listening on port ${port}!');
-});
+app.use(cors(corsOption));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
-// get example
 app.get('/', (req, res) => {
-	res.send("hello world")
+	res.json({message: "First try for a REST api"});
 });
 
-// post example
-app.post('/checkParser', (req, res) => {
-	console.log("Using Body-Parser: ", req.body.value)
-	res.send({"body": req.body})
-})
+require("./app/routes/endpoint.routes.js")(app);  // redirect requests to the appropriate files/functions
+require("./app/routes/admin.routes.js")(app);   // redirect request about admin operations, i.e. resetStations
+
+// choosing a port 
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+	console.log(`Server is running on port ${PORT}.`);
+});
+
