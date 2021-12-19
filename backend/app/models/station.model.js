@@ -36,7 +36,7 @@ Station.deleteOne = (id, result) => {   // if we want to delete a specific stati
 };
 
 Station.deleteAll = result => {   // deleting all entries from table station
-	sql.query("DELETE FROM station WHERE base = 0", (err, res) => {   // base represents whether or not a station is from sampledata
+	sql.query("DELETE FROM station WHERE original = 0", (err, res) => {   // original represents whether or not a station is from sampledata
 		if (err) {
 			conosle.log("error: ", err);
 			result(err, null);
