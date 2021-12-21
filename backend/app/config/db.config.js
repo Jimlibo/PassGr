@@ -1,6 +1,7 @@
-module.exports = {   // configuration for our db
-	HOST: "localhost",     
-	USER: "****",       // fill with your own username
-	PASSWORD: "*****",  // fill with your own password
-	DB: " "       // fill with the name of the database 
+// configuration for our db
+module.exports = {   	
+	HOST: "sql11.freemysqlhosting.net",     
+	USER: "sql11460242",       // fill with your own username
+	PASSWORD: "pNHDmwlRnX",  // fill with your own password
+	DB: "sql11460242"       // fill with the name of the database 
 };

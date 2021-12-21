@@ -15,8 +15,11 @@ app.get('/', (req, res) => {
 	res.json({message: "First try for a REST api"});
 });
 
-require("./app/routes/endpoint.routes.js")(app);  // redirect requests to the appropriate files/functions
-require("./app/routes/admin.routes.js")(app);   // redirect request about admin operations, i.e. resetStations
+// redirect requests to the appropriate files/functions
+require("./app/routes/endpoint.routes.js")(app); 
+
+// redirect request about admin operations, i.e. resetStations
+require("./app/routes/admin.routes.js")(app); 
 
 // choosing a port 
 const PORT = process.env.PORT || 8080;

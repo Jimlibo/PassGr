@@ -1,4 +1,5 @@
 module.exports = app => {
+
 	// get the necessary controllers for all tables in our database
 	const Operator = require("../controllers/operator.controller.js");  
 	const Record = require("../controllers/charge_record.controller.js"); 
@@ -12,10 +13,12 @@ module.exports = app => {
 
 	router.get("/Operators", Operator.findAll);
 
+	// Necessary endpoints for deployment
+	router.get("/PassesPerStation/:stationID/:date_from/:date_to", Pass.something);
+	router.get("/PassesAnalysis/:op1_ID/:op2_ID/:date_from/:date_to", Pass.sdfs);
 	router.get("/PassesCost/:op1_ID/:op2_ID/:date_from/:date_to", Pass.findCost);
+	router.get("/ChargesBy/:op_ID/:date_from/:date_to", Pass.sfsa);
 
-	// router.get()
-
-
-	app.use("/interoperability/api", router);   // base url of our api
+	// base url of our api
+	app.use("/interoperability/api", router);
 }

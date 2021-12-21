@@ -7,7 +7,7 @@ const Operator = function(operator) {   // defining a constructor for table <ope
 };
 
 Operator.create = (newOperator, result) => {   // creates a new entry in operator table in our db
-	sql.query(`INSERT INTO operator (Name, ProviderAbrv) VALUES ('${newOperator.Name}', '${newOperator.ProviderAbrv}')`, (err, res) => {
+	sql.query(`INSERT INTO Operator (Name, ProviderAbrv) VALUES ('${newOperator.Name}', '${newOperator.ProviderAbrv}')`, (err, res) => {
 		if (err) {
 			console.log("error: ", err);
 			result(err, null);
@@ -22,7 +22,7 @@ Operator.create = (newOperator, result) => {   // creates a new entry in operato
 
 Operator.getAll = (result) => {
 
-  sql.query("SELECT * FROM operator", (err, res) => {
+  sql.query("SELECT * FROM Operator", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -36,7 +36,7 @@ Operator.getAll = (result) => {
 
 
 Operator.findById = (id, result) => {
-  sql.query(`SELECT * FROM operator WHERE OperatorID = ${id}`, (err, res) => {
+  sql.query(`SELECT * FROM Operator WHERE OperatorID = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -55,7 +55,7 @@ Operator.findById = (id, result) => {
 };
 
 Operator.deleteOne = (id, result) => {   // if we want to delete a specific pass, identified by OperatorID
-  sql.query(`DELETE FROM operator WHERE OperatorID = '${id}'`, (err, res) => {
+  sql.query(`DELETE FROM Operator WHERE OperatorID = '${id}'`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

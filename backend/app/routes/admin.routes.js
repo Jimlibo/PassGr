@@ -1,4 +1,5 @@
 module.exports = app => {
+
 	// get the necessary controllers for all tables in our database
 	const Admin = require("../controllers/admin.controller.js")
 	const Operator = require("../controllers/operator.controller.js");  
@@ -9,13 +10,12 @@ module.exports = app => {
 
 	var router = require("express").Router();   // initializing the router
 
-
+	// Necessary endpoints for deployment
 	router.get("/healthcheck", Admin.healthcheck);
 	router.post("/resetpasses", Pass.reset);
 	router.post("/resetstations", Station.reset);
 	router.post("/resetvehicles", Tranceiver.reset);
 
-
-
-	app.use("/interoperability/api/admin", router);   // base url of our api for admin operations
+	// base url of our api for admin operations
+	app.use("/interoperability/api/admin", router);  
 }
