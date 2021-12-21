@@ -2,6 +2,10 @@ Pass = require("../models/pass.model.js");
 const { convertArrayToCSV } = require('convert-array-to-csv');
 const converter = require('convert-array-to-csv');
 
+// 
+exports.findPasses = (req, res) => {
+
+};
 
 exports.findCost = (req, res) => {
 	Pass.getCost(req.params.op1_ID, req.params.op2_ID, req.params.date_from, req.params.date_to, (err, data) => {

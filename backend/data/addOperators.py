@@ -4,10 +4,10 @@
 import mysql.connector
 
 db = mysql.connector.MySQLConnection(   # fill with your own credentials
-    host="localhost",
-    user="****",
-    password="****",
-    database=" "
+    host="sql11.freemysqlhosting.net",
+    user="sql11460242",
+    password="pNHDmwlRnX",
+    database="sql11460242"
     )
 mycursor = db.cursor()
 
@@ -23,7 +23,7 @@ operators = {   # dictionary that maps each operator name to an abrv.;
 }
 
 for name in operators.keys():   # adding each operator in the database
-	q = "INSERT INTO operator(NAME, ProviderAbrv) VALUES ('{}', '{}')".format(name, operators[name])
+	q = "INSERT INTO Operator VALUES ('{}', '{}')".format(name, operators[name])
 	mycursor.execute(q)
 	db.commit()   # save changes
 

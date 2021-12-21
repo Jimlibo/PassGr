@@ -9,7 +9,13 @@ const Pass = function(pass) {	// defining a constructor for table <pass> from ou
 	//this.Type = pass.Type;
 };
 
+// This query is for the PassesAnalysis deployment
+Pass.getPasses = (op1, op2, date_from, date_to, resut) => {
+	sql.query();
+}
 
+
+// This query is for the PassesCost deployment
 Pass.getCost = (op1, op2, date_from, date_to, result) => {
 	sql.query(`Select COUNT(p.passID) as count FROM pass AS p JOIN station AS s USING (StationID) JOIN tranceiver AS t USING (VehicleID) WHERE s.OperatorID = ${op1}
 		AND t.OperatorID = ${op2} AND p.LogData BETWEEN STR_TO_DATE(${date_from},'%Y%m%d') AND STR_TO_DATE(${date_to},'%Y%m%d')`, (err, res) => {

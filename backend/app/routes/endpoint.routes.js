@@ -14,10 +14,10 @@ module.exports = app => {
 	router.get("/Operators", Operator.findAll);
 
 	// Necessary endpoints for deployment
-	router.get("/PassesPerStation/:stationID/:date_from/:date_to", Pass.something);
-	router.get("/PassesAnalysis/:op1_ID/:op2_ID/:date_from/:date_to", Pass.sdfs);
+//	router.get("/PassesPerStation/:stationID/:date_from/:date_to", Pass.something);
+//	router.get("/PassesAnalysis/:op1_ID/:op2_ID/:date_from/:date_to", Pass.sdfs);
 	router.get("/PassesCost/:op1_ID/:op2_ID/:date_from/:date_to", Pass.findCost);
-	router.get("/ChargesBy/:op_ID/:date_from/:date_to", Pass.sfsa);
+//	router.get("/ChargesBy/:op_ID/:date_from/:date_to", Pass.sfsa);
 
 	// base url of our api
 	app.use("/interoperability/api", router);
