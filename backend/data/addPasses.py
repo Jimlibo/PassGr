@@ -4,12 +4,13 @@
 
 import csv
 import mysql.connector
+import keyring
 
 db = mysql.connector.MySQLConnection(
-	host="sql11.freemysqlhosting.net",
-	user="sql11460242",
-	password="pNHDmwlRnX",
-	database="sql11460242"
+	host="localhost",
+	user="root",
+	password= keyring.get_password("test", "root"),
+	database="TL2106"
 	)
 
 mycursor = db.cursor()
@@ -22,10 +23,10 @@ for row in csv_data:  # adding each station to the database
     if first == 0:
         first = 1
     else:
-        insert_stmt = ("INSERT INTO Pass (PassID, Timestamp, StationID, VehicleID, Charge)"
-                       "VALUES (%s, %s, %s, %s, %s)"
+        insert_stmt = ("INSERT INTO Pass (PassID, Timestamp, StationID, VehicleID, Charge, Type)"
+                       "VALUES (%s, %s, %s, %s, %s, %s)"
         )
-        mycursor.execute(insert_stmt, (row[0], row[1], row[2], row[3], row[4]))
+        mycursor.execute(insert_stmt, (row[0], row[1], row[2], row[3], row[4], ""))
         print(row)
 
 # closing the connection with the database

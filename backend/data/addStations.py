@@ -4,14 +4,14 @@
 
 import csv
 import mysql.connector
+import keyring
 
 db = mysql.connector.MySQLConnection(
-	host="sql11.freemysqlhosting.net",
-	user="sql11460242",
-	password="pNHDmwlRnX",
-	database="sql11460242"
+	host="localhost",
+	user="root",
+	password= keyring.get_password("test", "root"),
+	database="TL2106"
 	)
-
 mycursor = db.cursor()
 
 PATH_TO_CSV = "./sampledata/stations.csv"    # change to the appropriate path if needed
