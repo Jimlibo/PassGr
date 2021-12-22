@@ -3,25 +3,14 @@
 
 import mysql.connector
 
-db = mysql.connector.MySQLConnection(   # fill with your own credentials
-    host="sql11.freemysqlhosting.net",
-    user="sql11460242",
-    password="pNHDmwlRnX",
-    database="sql11460242"
-    )
-mycursor = db.cursor()
+db = mysql.connector.MySQLConnection(
+	host="sql11.freemysqlhosting.net",
+	user="sql11460242",
+	password="pNHDmwlRnX",
+	database="sql11460242"
+	)
 
-
-operators = {   # dictionary that maps each operator name to an abrv.;
-	'aodos': 'AO',
-	'egnatia': 'EG',
-	'gefyra': 'GF',
-	'kentriki_odos': 'KO',
-	'nea_odos': 'NE', 
-	'olympia_odos': 'OO',
-	'moreas': 'MR'
-}
-
+cursor = db.cursor()
 for name in operators.keys():   # adding each operator in the database
 	q = "INSERT INTO Operator VALUES ('{}', '{}')".format(name, operators[name])
 	mycursor.execute(q)

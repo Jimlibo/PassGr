@@ -14,7 +14,7 @@ db = mysql.connector.MySQLConnection(
 
 mycursor = db.cursor()
 
-PATH_TO_CSV = "./sampledata/stations.csv"    # change to the appropriate path if needed
+PATH_TO_CSV = "./sampledata/vehicles.csv"    # change to the appropriate path if needed
 csv_data = csv.reader(open(PATH_TO_CSV), delimiter=';')
 
 first = 0
@@ -22,13 +22,15 @@ for row in csv_data:  # adding each station to the database
     if first == 0:
         first = 1
     else:
-        insert_stmt = ("INSERT INTO Station (StationID, StationProvider, StationName)"
-                       "VALUES (%s, %s, %s)"
+        insert_stmt = ("INSERT INTO Vehicle (VehicleID, StationProvider, TagID, Balance, LicenseYear, ProviderAbbr)"
+                       "VALUES (%s, %s, %s, %s, %s, %s)"
         )
-        mycursor.execute(insert_stmt, (row[0], row[1], row[2]))
+        mycursor.execute(insert_stmt, (row[0], row[2], row[1], 0.0, row[4], row[3]))
+        print (row[2])
 
 # closing the connection with the database
 db.commit()   # save changes
 mycursor.close()
 db.close()
 print ("Done")
+

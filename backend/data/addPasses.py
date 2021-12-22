@@ -1,33 +1,36 @@
-# Script that reads data from csv file and fills the passes table in our db
+# Script that reads data from csv file and fills the station table in our db
 # !pip install pandas
 # !pip install mysql-connector-python
 
-import pandas as pd
+import csv
 import mysql.connector
 
-db = mysql.connector.MySQLConnection(   # fill with your own credentials
-    host="localhost",
-    user="****",
-    password="****",
-    database=" "
-    )
+db = mysql.connector.MySQLConnection(
+	host="sql11.freemysqlhosting.net",
+	user="sql11460242",
+	password="pNHDmwlRnX",
+	database="sql11460242"
+	)
+
 mycursor = db.cursor()
 
-PATH_TO_CSV = "./sampledata01_passes100_8000.csv"   # change to the appropriate path if needed
-df = pd.read_csv(PATH_TO_CSV, sep=';')
+PATH_TO_CSV = "./sampledata/passes.csv"    # change to the appropriate path if needed
+csv_data = csv.reader(open(PATH_TO_CSV), delimiter=';')
 
-for i in range(0, len(df)):
-    pass_id = df.iloc[i]['passID']
-    st_id = df.iloc[i]['stationRef']
-    amount = df.iloc[i]['charge']
-    timestamp = df.iloc[i]['timestamp']
-    veh_id = df.iloc[i]['vehicleRef']
+first = 0
+for row in csv_data:  # adding each station to the database
+    if first == 0:
+        first = 1
+    else:
+        insert_stmt = ("INSERT INTO Pass (PassID, Timestamp, StationID, VehicleID, Charge)"
+                       "VALUES (%s, %s, %s, %s, %s)"
+        )
+        mycursor.execute(insert_stmt, (row[0], row[1], row[2], row[3], row[4]))
+        print(row)
 
-    q = "INSERT INTO pass VALUES ('{}', '{}', '{}', STR_TO_DATE('{}', '%d/%m/%Y %h:%i'), {})".format(pass_id, st_id, veh_id, timestamp, amount)
-    mycursor.execute(q)
-    db.commit()  # save changes
-
-mycursor.close()  # closing the connection
+# closing the connection with the database
+db.commit()   # save changes
+mycursor.close()
 db.close()
-
+print ("Done")
 
