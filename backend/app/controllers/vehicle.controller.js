@@ -1,4 +1,4 @@
-const Tranceiver = require("../models/tranceiver.model.js");
+const Tranceiver = require("../models/vehicle.model.js");
 
 
 exports.reset = (req, res) => {

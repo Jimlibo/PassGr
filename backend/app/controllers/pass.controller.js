@@ -1,14 +1,22 @@
-Pass = require("../models/pass.model.js");
 const { convertArrayToCSV } = require('convert-array-to-csv');
 const converter = require('convert-array-to-csv');
+const Pass = require("../models/pass.model.js");
 
 // 
-exports.findPasses = (req, res) => {
+exports.findPassesPerStation = (req, res) => {
+	Pass.getPassesPerStation(req.params.stationID, req.params.date_from, req.params.date_to, (err, data) => {
+		if (err) {
+			res.status(402).send({message: 'No data'});
+		}
+		else  {
+			res.status(200).send(data);
+		}
+	})
 
 };
 
-exports.findCost = (req, res) => {
-	Pass.getCost(req.params.op1_ID, req.params.op2_ID, req.params.date_from, req.params.date_to, (err, data) => {
+exports.findPassesCost = (req, res) => {
+	Pass.getPassesCost(req.params.op1_ID, req.params.op2_ID, req.params.date_from, req.params.date_to, (err, data) => {
 		if (err) {
 		      if (err.kind === "not_found") {
 			res.status(402).send({
@@ -41,11 +49,11 @@ exports.findCost = (req, res) => {
 	    		res.status(200).send(final_csv);
 
 	    	}
-		else {   // if wrong format option is given, return error with the appropriate code
-	    		res.status(400).send({
-	    			message: "Bad Request"
-	    		});
-	    	}
+			else {   // if wrong format option is given, return error with the appropriate code
+					res.status(400).send({
+						message: "Bad Request"
+					});
+				}
 	    }
     });	
 };

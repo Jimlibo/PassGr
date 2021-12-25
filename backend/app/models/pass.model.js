@@ -9,14 +9,90 @@ const Pass = function(pass) {	// defining a constructor for table <pass> from ou
 	//this.Type = pass.Type;
 };
 
+
+// This query is for the PassesPerStation deployment
+Pass.getPassesPerStation = (stationID, date_from, date_to, result) => {
+	sql.query(
+
+			// MYSQL QUERY
+			`SELECT ROW_NUMBER() OVER() as PassIndex, p.PassID, p.TimeStamp, p.VehicleID, v.StationProvider, p.Type, p.Charge
+			FROM Pass as p
+			JOIN Station as s USING(StationID)
+			JOIN Vehicle as v USING(VehicleID)
+			WHERE s.StationID="${stationID}"
+			AND STR_TO_DATE(p.Timestamp, "%d/%m/%Y %H:%i") 
+				BETWEEN STR_TO_DATE(${date_from},"%Y%m%d") 
+				AND STR_TO_DATE(${date_to}, "%Y%m%d")`, 
+				
+			(err, res) => {
+			// IF THERE IS MYSQL ERROR
+			if (err) {
+				console.log(`error: ${err}`)
+				result(err, null);
+				return;
+			}
+			// IF THERE IS NO DATA
+			if (res.length == 0) {
+				result({error: "Didn't found any data"}, null);
+				return;
+			}
+
+			console.log(`Found: ${res.length} Passes! `);
+
+			// Requested Dates
+			var date = new Date();
+			var dateStr = 
+			date.getFullYear() + "-" + 
+			("00" + (date.getMonth() + 1)).slice(-2) + "-" +
+			("00" + date.getDate()).slice(-2) + " " +   // end of yyy-mm-dd format
+			("00" + date.getHours()).slice(-2) + ":" +
+			("00" + date.getMinutes()).slice(-2) + ":" +
+			("00" + date.getSeconds()).slice(-2);  // end of hh:mm:ss format
+			var date_from_str = date_from.substr(0,4) + "-" + date_from.substr(4,2) + "-" + date_from.substr(6) + " 00:00:00" 
+			var date_to_str = date_to.substr(0,4) + "-" + date_to.substr(4,2) + "-" + date_to.substr(6) + " 00:00:00" 
+
+			// Requested JSON Format
+			retval = {
+				StationID: stationID,
+				StationOperator: res[0]['StationProvider'],
+				RequestTimestamp: dateStr,
+				PeriodFrom: date_from,
+				PeriodTo: date_to,
+				NumberOfPasses: res.length,
+				PassesList: [
+					res
+				]	
+			}
+
+			result(null, retval);
+			});
+}
 // This query is for the PassesAnalysis deployment
 Pass.getPasses = (op1, op2, date_from, date_to, resut) => {
-	sql.query();
+	sql.query(`Select COUNT(p.passID) as count, SUM(p.Charge) as charges
+	FROM Pass AS p 
+	JOIN Station AS s USING (StationID) 
+	JOIN Vehicle AS v USING (VehicleID) 
+	WHERE s.StationProvider = "${op1}"
+	AND v.StationProvider = "${op2}"
+	AND STR_TO_DATE(p.Timestamp, "%d/%m/%Y %H:%i") 
+		BETWEEN STR_TO_DATE(${date_from},"%Y%m%d") 
+		AND STR_TO_DATE(${date_to}, "%Y%m%d")`, (err, res) => {
+		if (err) {
+			console.log("error: ", err)
+			result(err, null);
+			return;
+		}
+
+		retval = {
+			StationID
+		} 
+	});
 }
 
 
 // This query is for the PassesCost deployment
-Pass.getCost = (op1, op2, date_from, date_to, result) => {
+Pass.getPassesCost = (op1, op2, date_from, date_to, result) => {
 	sql.query(`Select COUNT(p.passID) as count, SUM(p.Charge) as charges
 			   FROM Pass AS p 
 			   JOIN Station AS s USING (StationID) 
@@ -28,7 +104,9 @@ Pass.getCost = (op1, op2, date_from, date_to, result) => {
 			      console.log("error: ", err);
 			      result(err, null);
 			      return;
-			    }
+				}
+				
+			// IF THERR
 			if (res[0]['count'] == 0) { // no data were found
 				result({ kind: "not_found" }, null);
 				return;
