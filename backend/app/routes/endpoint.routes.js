@@ -7,15 +7,15 @@ module.exports = app => {
 	const Tranceiver = require("../controllers/vehicle.controller.js"); 
 	const Pass = require("../controllers/pass.controller.js"); 
 
-	var router = require("express").Router();   // initializing the router
+	// initializing the router
+	var router = require("express").Router();  
 
-	// router.post("/", Operator.create);
-
+	// Example Implementation
 	router.get("/Operators", Operator.findAll);
 
 	// Necessary endpoints for deployment
 	router.get("/PassesPerStation/:stationID/:date_from/:date_to", Pass.findPassesPerStation);
-//	router.get("/PassesAnalysis/:op1_ID/:op2_ID/:date_from/:date_to", Pass.sdfs);
+	router.get("/PassesAnalysis/:op1_ID/:op2_ID/:date_from/:date_to", Pass.findPassesAnalysis);
 	router.get("/PassesCost/:op1_ID/:op2_ID/:date_from/:date_to", Pass.findPassesCost);
 //	router.get("/ChargesBy/:op_ID/:date_from/:date_to", Pass.sfsa);
 

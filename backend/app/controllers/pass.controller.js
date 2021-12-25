@@ -2,19 +2,38 @@ const { convertArrayToCSV } = require('convert-array-to-csv');
 const converter = require('convert-array-to-csv');
 const Pass = require("../models/pass.model.js");
 
-// 
+// PassePerStation Deployment
 exports.findPassesPerStation = (req, res) => {
-	Pass.getPassesPerStation(req.params.stationID, req.params.date_from, req.params.date_to, (err, data) => {
-		if (err) {
-			res.status(402).send({message: 'No data'});
-		}
-		else  {
-			res.status(200).send(data);
-		}
-	})
-
+	Pass.getPassesPerStation(req.params.stationID, req.params.date_from, req.params.date_to, 
+		
+		// Controller Implementation
+		(err, data) => {
+			if (err) {
+				res.status(402).send({message: 'No data'});
+			}
+			else  {
+				res.status(200).send(data);
+			}
+		})
 };
 
+
+// PassesAnalysis Deployment
+exports.findPassesAnalysis = (req, res) => {
+	Pass.getPassesAnalysis(req.params.op1_ID, req.params.op2_ID, req.params.date_from, req.params.date_to, 
+
+		// Controller Implementation
+		(err, data) => {
+			if (err) {
+				res.status(402).send({message: 'No data'});
+			}
+			else {
+				res.status(200).send(data);
+			}
+		})
+}
+
+// PassesCost Deployment
 exports.findPassesCost = (req, res) => {
 	Pass.getPassesCost(req.params.op1_ID, req.params.op2_ID, req.params.date_from, req.params.date_to, (err, data) => {
 		if (err) {
