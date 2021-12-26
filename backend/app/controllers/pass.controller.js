@@ -77,6 +77,21 @@ exports.findPassesCost = (req, res) => {
     });	
 };
 
+//  ChargesBy Deployment
+exports.findChargesBy = (req, res) => {
+	Pass.getChargesBy (req.params.op_ID, req.params.date_from, req.params.date_to, 
+
+	// Controller Implementation
+	(err, data) => {
+		if(err) {
+			res.status(402).send({message: 'No data'});
+		}
+		else {
+			res.status(200).send(data);
+		}
+	});
+}
+
 exports.reset = (req, res) => {
 	Pass.deleteAll((err, result) => {
 		if (err) {

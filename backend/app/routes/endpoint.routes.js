@@ -17,7 +17,7 @@ module.exports = app => {
 	router.get("/PassesPerStation/:stationID/:date_from/:date_to", Pass.findPassesPerStation);
 	router.get("/PassesAnalysis/:op1_ID/:op2_ID/:date_from/:date_to", Pass.findPassesAnalysis);
 	router.get("/PassesCost/:op1_ID/:op2_ID/:date_from/:date_to", Pass.findPassesCost);
-//	router.get("/ChargesBy/:op_ID/:date_from/:date_to", Pass.sfsa);
+	router.get("/ChargesBy/:op_ID/:date_from/:date_to", Pass.findChargesBy);
 
 	// base url of our api
 	app.use("/interoperability/api", router);
