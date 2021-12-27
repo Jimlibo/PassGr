@@ -196,12 +196,12 @@ Pass.getChargesBy = (op_ID, date_from, date_to, result) => {
 
 	let example = [];
 	for (let i=0; i < Operators.length; i++) {
-		if (Operators[i] != op_ID) {
-			Pass.getPassesCost(op_ID, Operators[i], date_from, date_to, (err, data) => {
-				if (err) {
-					console.log(`Error: ${err}`);
-				} 
-				else {
+		Pass.getPassesCost(op_ID, Operators[i], date_from, date_to, (err, data) => {
+			if (err) {
+				console.log(`Error: ${err}`);
+			} 
+			else {
+				if (Operators[i] != op_ID)  {
 					example.push( 
 						{
 							"VisitingOperator": data["op2_ID"],
@@ -209,16 +209,16 @@ Pass.getChargesBy = (op_ID, date_from, date_to, result) => {
 							"PassesCost": data["PassesCost"] 
 							}
 					);
-
-					if (i == Operators.length-1) {
-						retval["PPOList"] = example;
-						result(null, retval);
-						return;
-					}
 				}
 
-			});
-		}			
+				if (example.length == 6) {
+					retval["PPOList"] = example;
+					result(null, retval);
+					return;
+				}
+			}
+
+		});
 	}
 }
 
