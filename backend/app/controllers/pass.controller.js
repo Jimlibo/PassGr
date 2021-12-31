@@ -1,4 +1,3 @@
-const { convertArrayToCSV } = require('convert-array-to-csv');
 const converter = require('json-2-csv');
 const Pass = require("../models/pass.model.js");
 
@@ -34,10 +33,10 @@ exports.findPassesPerStation = (req, res) => {
 
 			// FORMAT == CSV
 			else if (req.query.format == "csv") {   
-				converter.json2csv(data, (err, csv) => {
+				converter.json2csv(data['PassesList'], (err, csv) => {
 					if (err) throw err;
 					else res.status(200).send(csv);
-				}) 
+				});
 			}
 
 			// WRONG FORMAT
@@ -69,7 +68,7 @@ exports.findPassesAnalysis = (req, res) => {
 
 			// FORMAT == CSV
 			else if (req.query.format == "csv") { 
-				converter.json2csv(data, (err, csv)=> {
+				converter.json2csv(data['PassesList'], (err, csv)=> {
 					if (err) throw err;
 					else res.status(200).send(csv);
 				});
@@ -86,39 +85,36 @@ exports.findPassesAnalysis = (req, res) => {
 
 // PassesCost Deployment
 exports.findPassesCost = (req, res) => {
-	Pass.getPassesCost(req.params.op1_ID, req.params.op2_ID, req.params.date_from, req.params.date_to, (err, data) => {
+	Pass.getPassesCost(req.params.op1_ID, req.params.op2_ID, req.params.date_from, req.params.date_to, 
+		
+	// Controller Implementation
+	(err, data) => {
 
+	// ERROR HANDLING
 	if (err) {
 		whatError(res, err);
 		return;
 	}
-	else {   // no errors were found from server side
-
+	// FORMAT HANDLING
+	else { 
+		// FORMAT == JSON
 		if (!req.query.format || req.query.format == "json") res.status(200).send(data);  // default, or if format is json
 
-		else if (req.query.format == "csv") {   // if format is csv
-
-			const data_objects =[{   // create dictionary with desired headers as keys
-				op1_ID: req.params.op1_ID,
-				op2_ID: req.params.op2_ID, 
-				RequestTimestamp: data['RequestTimestamp'],
-				PeriodFrom: data['PeriodFrom'],
-				PeriodTo: data['PeriodTo'], 
-				NumberOfPasses: data['NumberOfPasses'],
-				PassesCost: data['PassesCost']
-			}] 
-
-			const final_csv = convertArrayToCSV(data_objects);   // convert the dictionary to a csv file
-			res.status(200).send(final_csv);
-
+		// FORMAT == CSV
+		else if (req.query.format == "csv") {  
+			converter.json2csv(data, (err, csv) => {
+				if (err) throw err;
+				else res.status(200).send(csv);
+			})	
 		}
-		else {   // if wrong format option is given, return error with the appropriate code
-				res.status(400).send({
-					message: "Bad Request"
-				});
-			}
+		// WRONG FORMAT
+		else {  
+			res.status(400).send({
+				message: "Bad Request"
+			});
+		}
 	}
-});	
+	});	
 };
 
 //  ChargesBy Deployment
@@ -138,19 +134,10 @@ exports.findChargesBy = (req, res) => {
 
 			// FORMAT == CSV
 			else if (req.query.format == "csv") { 
-
-				const data_objects =[{   
-					op1_ID: req.params.op1_ID,
-					op2_ID: req.params.op2_ID, 
-					RequestTimestamp: data['RequestTimestamp'],
-					PeriodFrom: data['PeriodFrom'],
-					PeriodTo: data['PeriodTo'], 
-					NumberOfPasses: data['NumberOfPasses'],
-					PassesCost: data['PassesCost']
-				}] 
-
-				const final_csv = convertArrayToCSV(data_objects);   
-				res.status(200).send(final_csv);
+				converter.json2csv(data['PPOList'], (err, csv) => {
+					if (err) throw err;
+					else res.status(200).send(csv);
+				})
 			}
 			// WRONG FORMAT
 			else {  
@@ -162,6 +149,7 @@ exports.findChargesBy = (req, res) => {
 	});
 }
 
+// Reset
 exports.reset = (req, res) => {
 	Pass.deleteAll((err, result) => {
 		if (err) {

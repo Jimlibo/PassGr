@@ -1,6 +1,7 @@
 const sql = require("./db.js"); 
 
-const Pass = function(pass) {	// defining a constructor for table <pass> from our db
+// Constructor for table <Pass>
+const Pass = function(pass) {
 	this.StationID = pass.StationID;
 	this.VehicleID = pass.VehicleID;
 	this.passID = pass.passID;
@@ -9,13 +10,18 @@ const Pass = function(pass) {	// defining a constructor for table <pass> from ou
 	//this.Type = pass.Type;
 };
 
+// Requested Dates
+//function reqDates()
+
 
 //  PassesPerStation deployment
 Pass.getPassesPerStation = (stationID, date_from, date_to, result) => {
 	sql.query(
 
 	// MYSQL QUERY
-	`SELECT ROW_NUMBER() OVER() as PassIndex, p.PassID, p.TimeStamp, p.VehicleID, v.StationProvider, p.Type, p.Charge
+	`SELECT ROW_NUMBER() OVER() as PassIndex,
+	p.PassID, p.TimeStamp, p.VehicleID, 
+	v.StationProvider, p.Type, p.Charge
 	FROM Pass as p
 	JOIN Station as s USING(StationID)
 	JOIN Vehicle as v USING(VehicleID)
@@ -51,7 +57,7 @@ Pass.getPassesPerStation = (stationID, date_from, date_to, result) => {
 		var date_from_str = date_from.substr(0,4) + "-" + date_from.substr(4,2) + "-" + date_from.substr(6) + " 00:00:00" 
 		var date_to_str = date_to.substr(0,4) + "-" + date_to.substr(4,2) + "-" + date_to.substr(6) + " 00:00:00" 
 
-		// Requested JSON Format
+		// Requested JSON Format/ This is a javascript object
 		retval = {
 			StationID: stationID,
 			StationOperator: res[0]['StationProvider'],
@@ -59,11 +65,8 @@ Pass.getPassesPerStation = (stationID, date_from, date_to, result) => {
 			PeriodFrom: date_from_str,
 			PeriodTo: date_to_str,
 			NumberOfPasses: res.length,
-			PassesList: [
-				res
-			]	
+			PassesList: res
 		}
-
 		result(null, retval);
 	});
 }
@@ -71,7 +74,8 @@ Pass.getPassesPerStation = (stationID, date_from, date_to, result) => {
 Pass.getPassesAnalysis = (op1, op2, date_from, date_to, result) => {
 	// MYSQL QUERY
 	sql.query(`
-	Select ROW_NUMBER() OVER() as PassIndex, p.PassID, p.StationID, p.Timestamp, p.VehicleID, p.Charge
+	Select ROW_NUMBER() OVER() as PassIndex,
+	p.PassID, p.StationID, p.Timestamp, p.VehicleID, p.Charge
 	FROM Pass AS p 
 	JOIN Station AS s USING (StationID) 
 	JOIN Vehicle AS v USING (VehicleID) 
@@ -89,6 +93,7 @@ Pass.getPassesAnalysis = (op1, op2, date_from, date_to, result) => {
 			return;
 		}
 		console.log(`Number of Passes: ${res.length}`)
+
 		// finding the datetime of the request and formating the result in yyyy-mm-dd hh:mm:ss
 		var date = new Date();
 		var dateStr = 
@@ -110,9 +115,7 @@ Pass.getPassesAnalysis = (op1, op2, date_from, date_to, result) => {
 			PeriodFrom: date_from_str,
 			PeriodTo: date_to_str,
 			NumberOfPasses: res.length,
-			PassesList: [
-				res
-			]
+			PassesList: res
 		}
 		result(null, retval);
 	});
@@ -222,8 +225,8 @@ Pass.getChargesBy = (op_ID, date_from, date_to, result) => {
 	}
 }
 
-
-Pass.deleteOne = (id, result) => {   // if we want to delete a specific pass, identified by passID
+// Delete a specific Pass
+Pass.deleteOne = (id, result) => { 
 	sql.query(`DELETE FROM pass WHERE passID = '${id}'`, (err, res) => {
 		if (err) {
 			console.log("error: ", err);
@@ -239,7 +242,8 @@ Pass.deleteOne = (id, result) => {   // if we want to delete a specific pass, id
 	});
 };
 
-Pass.deleteAll = result => {   // deleting all entries from table pass
+// Delete all entries
+Pass.deleteAll = result => { 
 	sql.query("DELETE FROM pass", (err, res) => {
 		if (err) {
 			console.log("error: ", err);
