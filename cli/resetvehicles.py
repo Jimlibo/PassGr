@@ -1,4 +1,4 @@
-#! usr/bin/env python3
+#! /usr/bin/env python3
 
 import argparse   # for command-line arguments
 import requests   # for communicating with the api
