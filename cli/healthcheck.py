@@ -1,4 +1,4 @@
-#! /usr/bin python3
+#! /usr/bin/python3
 
 import argparse   # for command-line arguments
 import requests   # for communicating with the api
@@ -17,6 +17,4 @@ def healthcheck(ar):
 parser = argparse.ArgumentParser()   # creates a parser
 args = parser.parse_args()          # gets the values of parser's arguments
 
-
-print("It works!")
 healthcheck(args)
