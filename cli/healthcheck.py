@@ -6,7 +6,7 @@ import json       # for json format
 
 
 def healthcheck(ar):
-    res = requests.get('http://localhost:9103')
+    res = requests.get('http://localhost:9103/interoperability/api/admin/healthcheck')
     print(res.status_code)   # printing returning code
     print(res.json())       # printing  returned message
 
