@@ -5,8 +5,8 @@ import requests   # for communicating with the api
 import json       # for json format
 
 
-def resetstations(ar):
-    res = requests.post('http://localhost:9103/interoperability/api/admin/resetstations')
+def resetpasses(ar):
+    res = requests.post('http://localhost:9103/interoperability/api/admin/resetpasses')
     print(res.status_code)   # printing returning code
     print(res.json())       # printing  returned message
 
@@ -17,4 +17,4 @@ def resetstations(ar):
 parser = argparse.ArgumentParser()   # creates a parser
 args = parser.parse_args()          # gets the values of parser's arguments
 
-resetstations(args)
+resetpasses(args)

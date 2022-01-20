@@ -18,4 +18,3 @@ parser = argparse.ArgumentParser()   # creates a parser
 args = parser.parse_args()          # gets the values of parser's arguments
 
 resetvehicles(args)
-
