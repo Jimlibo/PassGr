@@ -42,7 +42,7 @@ se2106 SCOPE -h
 
 MIT
 
-**Free Software, Hell Yeah!**
+**Free Software**
 
 
    [argparse]: https://docs.python.org/3/library/argparse.html
