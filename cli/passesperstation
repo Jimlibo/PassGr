@@ -1,0 +1,47 @@
+#! /usr/bin/python3
+
+import argparse
+import requests
+import json
+from pathlib import Path
+from prettytable import from_csv
+from prettytable import DEFAULT
+
+
+def passes_per_station(ar):
+    url = 'http://localhost:9103/interoperability/api/PassesPerStation/' + ar.station +  '/' + str(ar.datefrom) + '/' + str(ar.dateto)  # url with params
+    if ar.format == 'csv':   # if csv format was requested, add it to the url
+        url = url + '?format=csv'
+
+    res = requests.get(url)   # get the answer from the api
+    print(res.status_code)
+
+    if ar.format == 'json' & res.status_code == 200:  # if json format was requested and query was successfull
+        print(json.dumps(res.json(), indent=4, sort_keys=False))   # print result in json format
+
+    elif ar.format == 'csv' and res.status_code == 200:  # if csv format was requested and everything went fine
+        f = open('./PassesPerStation.cv', 'w+')   # open and write answer in a new file
+        f.truncate(0)   # empty the file if not empty
+        f.write(res.text)
+        f.seek(0)   # pointer of file descriptor at start of file
+
+        # read from file and print contents in a nice format
+        x = from_csv(f, delimiter=',')
+        x.set_style(DEFAULT)
+        print(x)
+        f.close()   # close the file
+
+    return True
+
+
+parser = argparse.ArgumentParser()   # initializing the parser
+
+# adding necessary arguments
+parser.add_argument('--station', help='Choose a station', required=True)
+parser.add_argument('--datefrom', help='Choose start of period', required=True)
+parser.add_argument('--dateto', help='Choose end of period', required=True)
+parser.add_argument('--format', choices=['csv', 'json'], help='Choose format (json or csv)', required=True)
+
+args = parser.parse_args()   # get arguments from the command line
+
+passes_per_station(args)
