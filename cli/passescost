@@ -16,7 +16,7 @@ def passes_cost(ar):
     res = requests.get(url)   # get the answer from the api
     print(res.status_code)
 
-    if ar.format == 'json' & res.status_code == 200:  # if json format was requested and query was successfull
+    if ar.format == 'json' and res.status_code == 200:  # if json format was requested and query was successfull
         print(json.dumps(res.json(), indent=4, sort_keys=False))   # print result in json format
 
     elif ar.format == 'csv' and res.status_code == 200:  # if csv format was requested and everything went fine
