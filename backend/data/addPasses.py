@@ -7,11 +7,11 @@ import mysql.connector
 import keyring
 
 db = mysql.connector.MySQLConnection(
-	host="localhost",
-	user="root",
-	password= keyring.get_password("test", "root"),
-	database="TL2106"
-	)
+    host="localhost",
+    user="root",
+    password= keyring.get_password("test", "root"),
+    database="TL2106"
+    )
 
 mycursor = db.cursor()
 
@@ -27,7 +27,6 @@ for row in csv_data:  # adding each station to the database
                        "VALUES (%s, %s, %s, %s, %s, %s)"
         )
         mycursor.execute(insert_stmt, (row[0], row[1], row[2], row[3], row[4], ""))
-        print(row)
 
 # closing the connection with the database
 db.commit()   # save changes

@@ -22,8 +22,8 @@ for row in csv_data:  # adding each station to the database
     if first == 0:
         first = 1
     else:
-        insert_stmt = ("INSERT INTO Station (StationID, StationProvider, StationName)"
-                       "VALUES (%s, %s, %s)"
+        insert_stmt = ("INSERT INTO Station (StationID, StationProvider, StationName, original)"
+                       "VALUES (%s, %s, %s, 1)"
         )
         mycursor.execute(insert_stmt, (row[0], row[1], row[2]))
 
