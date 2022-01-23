@@ -2,7 +2,8 @@ CREATE TABLE ChargeRecord (
   RecordID         int(10) NOT NULL AUTO_INCREMENT, 
   StationProvider  varchar(20) NOT NULL, 
   StationProvider2 varchar(10) NOT NULL, 
-  LogData          varchar(15) NOT NULL, 
+  Date_from        varchar(15) NOT NULL, 
+  Date_to          varchar(15) NOT NULL,
   Amount           real NOT NULL, 
   Status           varchar(20) NOT NULL, 
   PRIMARY KEY (RecordID));
@@ -27,7 +28,8 @@ CREATE TABLE Rate (
 CREATE TABLE Station (
   StationID       varchar(4) NOT NULL, 
   StationProvider varchar(20) NOT NULL, 
-  StationName     varchar(20) NOT NULL, 
+  StationName     varchar(20) NOT NULL,
+  original        int(1) NOT NULL DEFAULT 0, 
   PRIMARY KEY (StationID));
 CREATE TABLE Vehicle (
   VehicleID       varchar(10) NOT NULL, 
@@ -35,8 +37,15 @@ CREATE TABLE Vehicle (
   TagID           varchar(10) NOT NULL, 
   Balance         real NOT NULL, 
   LicenseYear     int(4) NOT NULL, 
-  ProviderAbbr    varchar(2), 
+  ProviderAbbr    varchar(2),
+  original        int(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (VehicleID));
+CREATE TABLE Admin (
+  id int(4) NOT NULL AUTO_INCREMENT,
+  username varchar(40) NOT NULL,
+  password char(40) NOT NULL,
+  PRIMARY KEY (id)
+);
 ALTER TABLE Rate ADD CONSTRAINT FKRate781582 FOREIGN KEY (StationID) REFERENCES Station (StationID);
 ALTER TABLE Pass ADD CONSTRAINT FKPass841181 FOREIGN KEY (StationID) REFERENCES Station (StationID);
 ALTER TABLE Station ADD CONSTRAINT FKStation688352 FOREIGN KEY (StationProvider) REFERENCES Operator (StationProvider);
