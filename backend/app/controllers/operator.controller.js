@@ -4,52 +4,24 @@ exports.create = (req, res) => {
   // Validate request
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Bad Request"
     });
   }
 
-  // Create a Tutorial
+  // Create an Operator
   const operator = new Operator({
-    title: req.body.Name,
-    description: req.body.providerAbrv
+    Name: req.body.Name,
+    ProviderAbrv: req.body.providerAbrv
   });
 
-  // Save Tutorial in the database
+  // Save Operator in the database
   Operator.create(operator, (err, data) => {
     if (err)
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Operator."
+        message:"Internal Server Error"
       });
-    else res.send(data);
+    else res.status(200).send({
+      status: "OK"
+    });
   });
-};
-
-// Retrieve all operators from db
-exports.findAll = (req, res) => {
-  Operator.getAll((err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving operators."
-      });
-    else res.send(data);
-  });
-};
-
-// Retrieve a specific operator based on id
-exports.findOne = (req, res) => {
-	Operator.findById(req.params.id, (err, data) => {
-	    if (err) {
-	      if (err.kind === "not_found") {
-	        res.status(404).send({
-	          message: `Not found Tutorial with id ${req.params.id}.`
-	        });
-	      } else {
-	        res.status(500).send({
-	          message: "Error retrieving Tutorial with id " + req.params.id
-	        });
-	      }
-	    } else res.send(data);
-  	});
 };
