@@ -1,0 +1,37 @@
+#! /usr/bin/python3
+
+import argparse   # for the parser
+import requests   # for communication with the api
+import sys    # system library
+import json
+from pathlib import Path
+
+
+def passesupd(ar):
+    files = {'file': open(ar.source, 'rb')}   # open file for reading in binary mode
+    url = "http://localhost:9103/interoperability/api/admin/passesupd/" + ar.username + "/" + ar.password   # constructing the url based on parser arguments
+    res = requests.post(url, files=files)  # post with credentials and also include the file to be uploaded
+    print(res.status_code)   # print status code
+    print(res.json())       # print result
+    return True
+
+
+
+parser = argparse.ArgumentParser(prefix_chars='+')   # initializing the parser
+subs = parser.add_subparsers(help='sub-command help')   
+
+passesupd_parser = subs.add_parser('--passesupd', help='Upload a CSV file to update the passes (requires admin priviledges)')
+passesupd_parser.add_argument('--username', required=True, help='Admin username')   # admin credentials
+passesupd_parser.add_argument('--password', required=True, help='Admin password')   # admin credentials
+passesupd_parser.add_argument('--source', required=True, help='CSV file to be uploaded')  # path to the CSV file
+passesupd_parser.set_defaults(func=passesupd)   # set the desired function to be executed
+
+args = parser.parse_args()   # get arguments' values from the user
+
+if hasattr(args, 'func'):   # if correct sub-parser was given
+	if args.func.__name__ == 'passesupd':   # check if we have the correct one
+		passesupd(args)
+
+else:  # wrong sub-parser was given
+	parser.print_help()   # print help about sub-parsers (options, etc.)
+	sys.exit(1)  # exit with code 1
