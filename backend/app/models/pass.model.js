@@ -2,17 +2,29 @@ const sql = require("./db.js");
 
 // Constructor for table <Pass>
 const Pass = function(pass) {
+	this.PassID = pass.PassID;
 	this.StationID = pass.StationID;
 	this.VehicleID = pass.VehicleID;
-	this.passID = pass.passID;
-	this.LogData = pass.LogData;
-	this.amount = pass.amount;
-	//this.Type = pass.Type;
+	this.Timestamp = pass.Timestamp;
+	this.charge = pass.charge;
 };
 
 // Requested Dates
 //function reqDates()
 
+Pass.create = (newPass, result) => {
+	sql.query(`INSERT INTO Pass (PassID, StationID, VehicleID, Timestamp, charge, type) VALUES ('${newPass.PassID}', '${newPass.StationID}', '${newPass.VehicleID}', 
+		'${newPass.Timestamp}', ${newPass.charge}, " ")`, (err, res) => {
+		if (err) {
+			console.log("error: ", err);
+			result(err, null);
+			return;
+		}
+
+		console.log("Created new Pass: ", {...newPass});
+		result(null, {...newPass});
+	});
+};
 
 //  PassesPerStation deployment
 Pass.getPassesPerStation = (stationID, date_from, date_to, result) => {
@@ -39,7 +51,7 @@ Pass.getPassesPerStation = (stationID, date_from, date_to, result) => {
 		}
 		// IF THERE IS NO DATA
 		if (res.length == 0) {
-			result({error: "Didn't found any data"}, null);
+			result({kind: "not_found"}, null);
 			return;
 		}
 
@@ -234,7 +246,7 @@ Pass.deleteOne = (id, result) => {
 			return;
 		} 
 		if (res.affectedRows == 0) {
-			result({kind:" not_fount"}, null);
+			result({kind:" not_found"}, null);
 			return;
 		}
 
