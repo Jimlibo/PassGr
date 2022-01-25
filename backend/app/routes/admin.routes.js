@@ -1,3 +1,6 @@
+const multer = require('multer');
+var upload = multer({ inMemory: true}).single('file');    // for uploading a file
+
 module.exports = app => {
 
 	// get the necessary controllers for all tables in our database
@@ -15,6 +18,7 @@ module.exports = app => {
 	router.post("/resetpasses", Pass.reset);
 	router.post("/resetstations", Station.reset);
 	router.post("/resetvehicles", Tranceiver.reset);
+	router.post("/passesupd/:username/:password", Admin.isAdmin, upload, Pass.passesUpdate);  // first check the credentials, then upload the file and try to update the database
 
 	// base url of our api for admin operations
 	app.use("/interoperability/api/admin", router);  
