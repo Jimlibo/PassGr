@@ -1,9 +1,11 @@
+const csv = require('csvtojson');
 const converter = require('json-2-csv');
 const Pass = require("../models/pass.model.js");
+const Admin = require("../models/admin.model.js");
 
 // Function that prints the error 
 function whatError(res, error) {
-	if (error == "not found") {
+	if (error == "not_found") {
 		res.status(402).send({
 			message: 'No data'
 		});
@@ -159,4 +161,42 @@ exports.reset = (req, res) => {
 			});
 		} else res.status(200).send({status: "OK"});
 	});
+};
+
+// update db with passes from a given file
+exports.passesUpdate = (req, res) => { 
+	var csvString = req.file.buffer.toString();   // get the csv file from the buffer and turn it to string
+	csv_array = csvString.split('\n');   // split the above string into rows
+	if (csv_array.length == 0) {
+		res.status(400).send({
+			message: 'File is empty'
+		});
+		return;
+	}
+	else {
+		console.log("entering for loop");
+		for (let i = 1; i < csv_array.length; i++) {   // for each row in the file, create an  entry in the table "pass" of the db
+			let row = csv_array[i].split(';');   // for each row, split the original cells of the csv
+			pass = new Pass({
+				PassID: row[0],
+				StationID: row[2],
+				VehicleID: row[3],
+				Timestamp: row[1],
+				charge: row[4]
+			});
+			Pass.create(pass, (err, data) => {
+				if (err) {   // send error message and exit, if error occurred
+					console.log("error: ", err);
+					res.status(500).send({
+						status: "failed"
+					});
+					return;
+				}
+			});
+		}
+		res.status(200).send({   // if everything went fine, return the appropriate message with code 200
+			message: "OK"
+		});
+	}
+	
 };
