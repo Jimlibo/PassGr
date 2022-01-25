@@ -12,7 +12,7 @@ CREATE TABLE Operator (
   ProviderAbbr    varchar(2) NOT NULL, 
   PRIMARY KEY (StationProvider));
 CREATE TABLE Pass (
-  PassID    int(10) NOT NULL AUTO_INCREMENT, 
+  PassID    char(10) NOT NULL, 
   Timestamp varchar(15) NOT NULL, 
   StationID varchar(4) NOT NULL, 
   VehicleID varchar(10) NOT NULL, 
