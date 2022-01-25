@@ -20,4 +20,18 @@ Admin.check_connection = result => {   // check connection with the database
 	});
 };
 
+Admin.exists = (username, password, res) => {   // checks if admin with the given credentials exists
+	sql.query(`SELECT * FROM admin WHERE username = '${username}' and password = SHA1('${password}')`, (err, result) => {
+		if (err) {    // interval error
+			console.log("error: ", err);
+			res(err, null);
+		} else if (result.length == 0) {   // not found
+		res({kind: 'not_found'}, null);
+		} else {   // found
+			res(null, res);
+		}
+		return;
+	});
+};
+
 module.exports = Admin;   // return the Admin object with all its functions
