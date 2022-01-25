@@ -24,7 +24,7 @@ pip3 install -r requirements.txt
 ```
 To be able to run scripts without "./"
 ```sh
-export PATH="$PATH:/path/to/cli-client"
+sudo cp se2106 /usr/bin
 ```
 ## Usage 
 Use according to the [document] provided by the course instructors
