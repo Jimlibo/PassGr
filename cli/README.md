@@ -35,7 +35,7 @@ To get a help message for each scope
 ```sh
 se2106 SCOPE -h
 ```
-Note: For admin you have to type "se2106 admin +h"
+Note: For the admin scope use +h instead
 ## Testing
 - not added yet
 
