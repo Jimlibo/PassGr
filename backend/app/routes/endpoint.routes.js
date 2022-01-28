@@ -11,7 +11,6 @@ module.exports = app => {
 	var router = require("express").Router();  
 
 	// Example Implementation
-	router.get("/Operators", Operator.findAll);
 
 	// Necessary endpoints for deployment
 	router.get("/PassesPerStation/:stationID/:date_from/:date_to", Pass.findPassesPerStation);
