@@ -1,13 +1,20 @@
 const express = require('express');
 const cors = require('cors');
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('.cert/key.pem'),
+  cert: fs.readFileSync('.cert/cert.pem')
+};
 
 const app = express();
 
-var corsOption = {
+var corsOptions = {
 	origin: "*"
 };
 
-app.use(cors(corsOption));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -23,7 +30,11 @@ require("./app/routes/admin.routes.js")(app);
 
 // choosing a port 
 const PORT = process.env.PORT || 9103;
-app.listen(PORT, () => {
-	console.log(`Server is running on port ${PORT}.`);
+
+// creating the https server
+https.createServer(options, app).listen(PORT, ()=>{
+	console.log(`Server is running on port ${PORT}.`);  
 });
 
+
+module.exports = app;
