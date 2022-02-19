@@ -31,6 +31,8 @@ require("./app/routes/admin.routes.js")(app);
 // choosing a port 
 const PORT = process.env.PORT || 9103;
 
+// to allow our private certificate
+const httpsAgent = new https.Agent({ rejectUnauthorized: false }); 
 // creating the https server
 https.createServer(options, app).listen(PORT, ()=>{
 	console.log(`Server is running on port ${PORT}.`);  
