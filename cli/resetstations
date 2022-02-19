@@ -6,7 +6,7 @@ import json       # for json format
 
 
 def resetstations(ar):
-    res = requests.post('https://localhost:9103/interoperability/api/admin/resetstations')
+    res = requests.post('https://localhost:9103/interoperability/api/admin/resetstations', verify=False)
     print(res.status_code)   # printing returning code
     print(res.json())       # printing  returned message
 

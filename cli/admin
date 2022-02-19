@@ -10,7 +10,7 @@ from pathlib import Path
 def passesupd(ar):
     files = {'file': open(ar.source, 'rb')}   # open file for reading in binary mode
     url = "https://localhost:9103/interoperability/api/admin/passesupd/" + ar.username + "/" + ar.password   # constructing the url based on parser arguments
-    res = requests.post(url, files=files)  # post with credentials and also include the file to be uploaded
+    res = requests.post(url, files=files, verify=False)  # post with credentials and also include the file to be uploaded
     print(res.status_code)   # print status code
     print(res.json())       # print result
     return True

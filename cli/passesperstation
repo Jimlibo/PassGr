@@ -13,7 +13,7 @@ def passes_per_station(ar):
     if ar.format == 'csv':   # if csv format was requested, add it to the url
         url = url + '?format=csv'
 
-    res = requests.get(url)   # get the answer from the api
+    res = requests.get(url, verify=False)   # get the answer from the api
     print(res.status_code)
 
     if ar.format == 'json' and res.status_code == 200:  # if json format was requested and query was successfull

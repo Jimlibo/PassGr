@@ -6,7 +6,7 @@ import json       # for json format
 
 
 def resetvehicles(ar):
-    res = requests.post('https://localhost:9103/interoperability/api/admin/resetvehicles')
+    res = requests.post('https://localhost:9103/interoperability/api/admin/resetvehicles', verify=False)
     print(res.status_code)   # printing returning code
     print(res.json())       # printing  returned message
 
