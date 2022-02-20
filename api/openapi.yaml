@@ -7,7 +7,7 @@ info:
     email: el19404@mail.ntua.gr
   version: 1.0.0
 servers: 
-- url: http://localhost:8080/interoperability/api/
+- url: https://localhost:9103/interoperability/api/
   description: Base url
 paths:
   /admin/healthcheck: 
