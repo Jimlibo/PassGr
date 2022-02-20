@@ -26,7 +26,7 @@
 ## Initializing Database
    1. Start a mysql server
    2. Create a database
-   3. Fill the credentials -> /back-end/app/config/db.config.js
+   3. Fill the credentials -> /backend/app/config/db.config.js
 
 ## Installation
 For a quick installation 
