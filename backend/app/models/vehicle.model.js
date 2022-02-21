@@ -9,7 +9,7 @@ const Tranceiver = function(tranceiver) {	// defining a constructor for table <t
 };
 
 Tranceiver.deleteOne = (id, result) => {   // if we want to delete a specific tag, identified by tagID
-	sql.query(`DELETE FROM tranceiver WHERE tagID = '${id}'`, (err, res) => {
+	sql.query(`DELETE FROM vehicle WHERE vehicleID = '${id}'`, (err, res) => {
 		if (err) {
 			console.log("error: ", err);
 			result(err, null);
@@ -25,7 +25,7 @@ Tranceiver.deleteOne = (id, result) => {   // if we want to delete a specific ta
 };
 
 Tranceiver.deleteAll = result => {   // deleting all entries from table tranceiver
-	sql.query("DELETE FROM tranceiver WHERE original = 0", (err, res) => {   // original represents whether or not a station is from sampledata
+	sql.query("DELETE FROM vehicle WHERE original = 0", (err, res) => {   // original represents whether or not a station is from sampledata
 		if (err) {
 			console.log("error: ", err);
 			result(err, null);
