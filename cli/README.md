@@ -5,7 +5,6 @@
 
 ## Contents
 - Command line interface
-- cli unit testing (not added yet)
 
 
 ## Python3 Packages
@@ -36,8 +35,6 @@ To get a help message for each scope
 se2106 SCOPE -h
 ```
 Note: For the admin scope use +h instead
-## Testing
-- not added yet
 
 ## License
 
