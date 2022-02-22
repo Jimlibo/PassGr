@@ -38,7 +38,7 @@ parser = argparse.ArgumentParser()   # initializing the parser
 
 # adding necessary arguments
 parser.add_argument('--op1', help='Operator that owns the station', required=True)
-parser.add_argument('--op2', help='Operator that owns the station', required=True)
+parser.add_argument('--op2', help='Operator whose tranceiver made the passes', required=True)
 parser.add_argument('--datefrom', help='Choose start of period', required=True)
 parser.add_argument('--dateto', help='Choose end of period', required=True)
 parser.add_argument('--format', choices=['csv', 'json'], help='Choose format (json or csv)', required=True)
