@@ -27,6 +27,7 @@
    1. Start a mysql server
    2. Create a database
    3. Fill the credentials -> /backend/app/config/db.config.js
+   4. Use /database/dbdump.sql to create required tables in database
 
 ## Installation
 For a quick installation 
