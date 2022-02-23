@@ -1,5 +1,5 @@
 # CLI Tesing
-In this folder are the unit tests fro cli.
+In this folder are the unit tests for cli.
 
 ## Running tests
 First of all, you need to have downloaded [python]. To run the admin tests, use the command
