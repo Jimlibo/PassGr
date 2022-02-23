@@ -3,8 +3,8 @@ info:
   title: TL2106
   description: This is an API Documentation for the project of Tolls interoperability
   contact: 
-    name: Dimitris Vasios 
-    email: el19404@mail.ntua.gr
+    name: TL2106
+    email: hello@hello.gr
   version: 1.0.0
 servers: 
 - url: https://localhost:9103/interoperability/api/
