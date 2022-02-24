@@ -132,7 +132,10 @@ exports.findChargesBy = (req, res) => {
 		}
 		else {
 			// FORMAT == JSON
-			if (!req.query.format || req.query.format == "json") res.status(200).send(data);  
+			if (!req.query.format || req.query.format == "json") {
+				res.status(200).send(data); 
+				return;
+			}
 
 			// FORMAT == CSV
 			else if (req.query.format == "csv") { 

@@ -214,6 +214,7 @@ Pass.getChargesBy = (op_ID, date_from, date_to, result) => {
 		Pass.getPassesCost(op_ID, Operators[i], date_from, date_to, (err, data) => {
 			if (err) {
 				console.log(`Error: ${err}`);
+				return;
 			} 
 			else {
 				if (Operators[i] != op_ID)  {

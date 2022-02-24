@@ -1,3 +1,10 @@
+CREATE TABLE admin (
+  id int(4) NOT NULL,
+  username varchar(40) NOT NULL,
+  password char(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO admin (id, username, password) VALUES
+(1, 'admin01', '951f8fbc1650f72773983b1628512a51f9d8b4d2');
 CREATE TABLE ChargeRecord (
   RecordID         int(10) NOT NULL AUTO_INCREMENT, 
   StationProvider  varchar(20) NOT NULL, 
@@ -40,12 +47,6 @@ CREATE TABLE Vehicle (
   ProviderAbbr    varchar(2),
   original        int(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (VehicleID));
-CREATE TABLE Admin (
-  id int(4) NOT NULL AUTO_INCREMENT,
-  username varchar(40) NOT NULL,
-  password char(40) NOT NULL,
-  PRIMARY KEY (id)
-);
 ALTER TABLE Rate ADD CONSTRAINT FKRate781582 FOREIGN KEY (StationID) REFERENCES Station (StationID);
 ALTER TABLE Pass ADD CONSTRAINT FKPass841181 FOREIGN KEY (StationID) REFERENCES Station (StationID);
 ALTER TABLE Station ADD CONSTRAINT FKStation688352 FOREIGN KEY (StationProvider) REFERENCES Operator (StationProvider);
