@@ -14,15 +14,6 @@ Highway Providers will have access to debts to other providers as well as statis
 
 2) Highway Providers and the Transportation Authority have the opportunity to view statistics for the vehicles transits for a specific highway statin and for the selected dates. 
 
-### Installation
-
-Below is an example of how you can install and set up the application. 
-
-1) sfdasf
-2)
-3)
-4)
-
 ### Safety
 
 Safety is the number one priority for our users. We are implementing the newest technologies to ensure that their data will be safe. Specifically, we are implementing the HTTPS Protocol and SSL Certificate.
