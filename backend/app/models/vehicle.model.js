@@ -25,7 +25,7 @@ Vehicle.deleteOne = (id, result) => {   // if we want to delete a specific tag, 
 };
 
 Vehicle.deleteAll = result => {   // deleting all entries from table vehicle
-	sql.query("DELETE FROM vehicle WHERE original = 0", (err, res) => {   // original represents whether or not a vehicle is from sampledata
+	sql.query("DELETE FROM Vehicle WHERE original = 0", (err, res) => {   // original represents whether or not a vehicle is from sampledata
 		if (err) {
 			console.log("error: ", err);
 			result(err, null);

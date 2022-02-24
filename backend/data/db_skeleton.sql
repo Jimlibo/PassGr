@@ -13,9 +13,9 @@ CREATE TABLE Operator (
   PRIMARY KEY (StationProvider));
 CREATE TABLE Pass (
   PassID    char(10) NOT NULL, 
-  Timestamp varchar(15) NOT NULL, 
+  Timestamp varchar(25) NOT NULL, 
   StationID varchar(4) NOT NULL, 
-  VehicleID varchar(10) NOT NULL, 
+  VehicleID varchar(12) NOT NULL, 
   Charge    real NOT NULL, 
   Type      varchar(4) NOT NULL, 
   PRIMARY KEY (PassID));
@@ -28,11 +28,11 @@ CREATE TABLE Rate (
 CREATE TABLE Station (
   StationID       varchar(4) NOT NULL, 
   StationProvider varchar(20) NOT NULL, 
-  StationName     varchar(20) NOT NULL,
+  StationName     varchar(30) NOT NULL,
   original        int(1) NOT NULL DEFAULT 0, 
   PRIMARY KEY (StationID));
 CREATE TABLE Vehicle (
-  VehicleID       varchar(10) NOT NULL, 
+  VehicleID       varchar(12) NOT NULL, 
   StationProvider varchar(20) NOT NULL, 
   TagID           varchar(10) NOT NULL, 
   Balance         real NOT NULL, 

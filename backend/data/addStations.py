@@ -9,7 +9,7 @@ import keyring
 db = mysql.connector.MySQLConnection(
 	host="localhost",
 	user="root",
-	password= keyring.get_password("test", "root"),
+	password= "MyNewPass",
 	database="TL2106"
 	)
 mycursor = db.cursor()
@@ -31,4 +31,4 @@ for row in csv_data:  # adding each station to the database
 db.commit()   # save changes
 mycursor.close()
 db.close()
-print ("Done")
+print ("Station Table Filled")

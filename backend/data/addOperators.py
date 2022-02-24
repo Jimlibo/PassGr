@@ -2,13 +2,11 @@
 # !pip install mysql-connector-python
 
 import mysql.connector
-# keyring for storing database password
-import keyring
 
 db = mysql.connector.MySQLConnection(
 	host="localhost",
 	user="root",
-	password= keyring.get_password("test", "root"),
+	password= "MyNewPass",
 	database="TL2106"
 	)
 mycursor = db.cursor()
@@ -30,3 +28,4 @@ for name in operators:   # adding each operator in the database
 
 mycursor.close()  # closing the connection
 db.close()
+print("Operator Table Filled")

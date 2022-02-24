@@ -256,7 +256,7 @@ Pass.deleteOne = (id, result) => {
 
 // Delete all entries
 Pass.deleteAll = result => { 
-	sql.query("DELETE FROM pass", (err, res) => {
+	sql.query("DELETE FROM Pass", (err, res) => {
 		if (err) {
 			console.log("error: ", err);
 			result(err, null);
