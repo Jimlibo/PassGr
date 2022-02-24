@@ -25,9 +25,9 @@
 
 ## Initializing Database
    1. Start a mysql server
-   2. Create a database
+   2. Create a database by typing "./init_db.sh"
    3. Fill the credentials -> /backend/app/config/db.config.js
-   4. Use /database/dbdump.sql to create required tables in database
+Alternatively, you can create the database, using the /database/dbdump.sql file
 
 ## Installation
 For a quick installation 
