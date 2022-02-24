@@ -1,14 +1,14 @@
 const sql = require("./db.js");
 
-const Tranceiver = function(tranceiver) {	// defining a constructor for table <tranceiver> from our db
-	this.tagID = tranceiver.tagID;
-	this.OperatorID = tranceiver.OperatorID;
-	this.balance = tranceiver.balance;
-	this.VehicleID = tranceiver.VehicleID;
-	this.LicenseYear = tranceiver.LicenseYear;
+const Vehicle = function(vehicle) {	// defining a constructor for table <vehicle> from our db
+	this.tagID = vehicle.tagID;
+	this.OperatorID = vehicle.OperatorID;
+	this.balance = vehicle.balance;
+	this.VehicleID = tvehicle.VehicleID;
+	this.LicenseYear = vehicle.LicenseYear;
 };
 
-Tranceiver.deleteOne = (id, result) => {   // if we want to delete a specific tag, identified by tagID
+Vehicle.deleteOne = (id, result) => {   // if we want to delete a specific tag, identified by tagID
 	sql.query(`DELETE FROM vehicle WHERE vehicleID = '${id}'`, (err, res) => {
 		if (err) {
 			console.log("error: ", err);
@@ -24,8 +24,8 @@ Tranceiver.deleteOne = (id, result) => {   // if we want to delete a specific ta
 	});
 };
 
-Tranceiver.deleteAll = result => {   // deleting all entries from table tranceiver
-	sql.query("DELETE FROM vehicle WHERE original = 0", (err, res) => {   // original represents whether or not a station is from sampledata
+Vehicle.deleteAll = result => {   // deleting all entries from table vehicle
+	sql.query("DELETE FROM vehicle WHERE original = 0", (err, res) => {   // original represents whether or not a vehicle is from sampledata
 		if (err) {
 			console.log("error: ", err);
 			result(err, null);
@@ -37,4 +37,4 @@ Tranceiver.deleteAll = result => {   // deleting all entries from table tranceiv
 	});
 };
 
-module.exports = Tranceiver;   // return the Tranceiver object with all its functions
+module.exports = Vehicle;   // return the Vehicle object with all its functions

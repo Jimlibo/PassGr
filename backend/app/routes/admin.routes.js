@@ -8,7 +8,7 @@ module.exports = app => {
 	const Operator = require("../controllers/operator.controller.js");  
 	const Record = require("../controllers/charge_record.controller.js"); 
 	const Station = require("../controllers/station.controller.js"); 
-	const Tranceiver = require("../controllers/vehicle.controller.js"); 
+	const Vehicle = require("../controllers/vehicle.controller.js"); 
 	const Pass = require("../controllers/pass.controller.js"); 
 
 	var router = require("express").Router();   // initializing the router
@@ -17,7 +17,7 @@ module.exports = app => {
 	router.get("/healthcheck", Admin.healthcheck);
 	router.post("/resetpasses", Pass.reset);
 	router.post("/resetstations", Station.reset);
-	router.post("/resetvehicles", Tranceiver.reset);
+	router.post("/resetvehicles", Vehicle.reset);
 	router.post("/passesupd/:username/:password", Admin.isAdmin, upload, Pass.passesUpdate);  // first check the credentials, then upload the file and try to update the database
 
 	// base url of our api for admin operations

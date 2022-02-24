@@ -1,8 +1,8 @@
-const Tranceiver = require("../models/vehicle.model.js");
+const Vehicle = require("../models/vehicle.model.js");
 
 
 exports.reset = (req, res) => {
-	Tranceiver.deleteAll((err, result) => {
+	Vehicle.deleteAll((err, result) => {
 		if (err) {
 			console.log("error: ", error);
 			res.status(500).send({

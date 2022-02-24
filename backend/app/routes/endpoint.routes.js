@@ -4,7 +4,7 @@ module.exports = app => {
 	const Operator = require("../controllers/operator.controller.js");  
 	const Record = require("../controllers/charge_record.controller.js"); 
 	const Station = require("../controllers/station.controller.js"); 
-	const Tranceiver = require("../controllers/vehicle.controller.js"); 
+	const Vehicle = require("../controllers/vehicle.controller.js"); 
 	const Pass = require("../controllers/pass.controller.js"); 
 
 	// initializing the router
